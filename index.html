@@ -3,40 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>アニメリスト</title>
+  <title>ゆきのアニメリスト❄️</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: #fdfdfd;
+      font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+      background: linear-gradient(#e0f7ff, #ffffff);
       color: #333;
       max-width: 800px;
       margin: auto;
       padding: 2em;
+      position: relative;
     }
-    h1 { color: #ff6699; }
-    .anime {
-      margin-bottom: 1.5em;
-      border-left: 4px solid #ccc;
-      padding-left: 1em;
+    header {
+      text-align: center;
+      margin-bottom: 2em;
     }
-    .tag { font-size: 0.9em; color: #777; }
-    .super-fav { color: #e91e63; font-weight: bold; }
+    h1 {
+      font-size: 2.5em;
+      color: #6ab8ff;
+    }
+    .snowflake {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
-  <h1>🍿 私のアニメリスト</h1>
+  <header>
+    <h1>❄️ ゆきのアニメ棚 ❄️</h1>
+    <p>
+      アニメと絵が大好きな「ゆき」です。<br>
+      観たアニメや気になる作品を、五十音順で整理して紹介しています。<br>
+      超好きな作品には「♡」マーク付き！<br>
+      やさしい水色とふわふわ雪の世界で、推しを語っていきます⛄️✨
+    </p>
+  </header>
 
-  <div class="anime">
-    <h2>ハイキュー!! <span class="tag super-fav">♡超好き</span></h2>
-    <p>推し：西谷夕、ストーリーも熱くて元気出る！</p>
-    <p>周回数：2周 / 漫画：読了</p>
-  </div>
+  <main>
+    <h2>まだまだ制作中！ここにアニメリストが入ります🎨</h2>
+  </main>
 
-  <div class="anime">
-    <h2>魔法少女まどか☆マギカ <span class="tag">☆好き</span></h2>
-    <p>推し：さやか / 曲の世界観がすごい</p>
-    <p>周回数：1周 / 漫画：未読</p>
-  </div>
+  <!-- 雪を降らせるスクリプト -->
+  <div class="snowflake" id="snowfall"></div>
+  <script>
+    // 簡易な雪エフェクト
+    const snowContainer = document.getElementById("snowfall");
+    function createSnow() {
+      const snow = document.createElement("div");
+      snow.textContent = "❄";
+      snow.style.position = "absolute";
+      snow.style.fontSize = `${Math.random() * 10 + 10}px`;
+      snow.style.left = `${Math.random() * 100}%`;
+      snow.style.animation = `fall ${Math.random() * 5 + 5}s linear forwards`;
+      snowContainer.appendChild(snow);
 
+      setTimeout(() => {
+        snow.remove();
+      }, 10000);
+    }
+    setInterval(createSnow, 200);
+
+    // 雪のアニメーション
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fall {
+        to {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>
