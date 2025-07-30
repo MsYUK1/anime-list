@@ -53,6 +53,15 @@
     
       <!-- あ行リスト -->
       <div id="a-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- か行ボタン -->
+      <button onclick="toggleSection('ka-gyou-list')" style="margin: 1em 0; font-size: 1.1em;">
+        ▶ か行
+      </button>
+
+      <!-- か行リスト -->
+      <div id="ka-gyou-list" style="display: none; padding-left: 1em;"></div>
+
     </section>
     
     <script>
@@ -62,6 +71,7 @@
       }
     </script>    
   </main>
+
 
   <!-- 雪を降らせるスクリプト -->
   <div class="snowflake" id="snowfall"></div>
@@ -98,39 +108,45 @@
 
   <!-- アニメリストを読み込むJS -->
   <script>
-    async function loadAnimeList() {
+    async function loadAnimeList(gyouKana, listId) {
       const response = await fetch("anime.json");
       const data = await response.json();
 
-      const aList = document.getElementById("a-gyou-list");
-      aList.innerHTML = "";
+      const list = document.getElementById(listId);
+      list.innerHTML = "";
 
-      data.filter(item => item.kana === "あ").forEach(anime => {
+      data.filter(item => item.kana === gyouKana).forEach(anime => {
         const details = document.createElement("details");
         const summary = document.createElement("summary");
         summary.textContent = `${anime.rank} ${anime.title}`;
-        const p = document.createElement("p");
 
+        const p = document.createElement("p");
         let favText = anime.fav ? `推し：${anime.fav}<br>` : "";
         let commentText = anime.comment ? anime.comment : "";
-
         p.innerHTML = `${favText}${commentText}`;
 
         details.appendChild(summary);
         details.appendChild(p);
-        aList.appendChild(details);
+        list.appendChild(details);
       });
     }
+
 
     function toggleSection(id) {
       const section = document.getElementById(id);
       const nowOpen = section.style.display === "block";
       section.style.display = nowOpen ? "none" : "block";
 
-      if (!nowOpen && id === "a-gyou-list") {
-        loadAnimeList();
+      if (!nowOpen) {
+        if (id === "a-gyou-list") {
+          loadAnimeList("あ", "a-gyou-list");
+        } else if (id === "ka-gyou-list") {
+          loadAnimeList("か", "ka-gyou-list");
+        }
+        // 他の行も今後ここに追加していけばOK！
       }
     }
+
   </script>
 </body>
 </html>
