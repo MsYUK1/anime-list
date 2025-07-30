@@ -45,7 +45,39 @@
   </header>
 
   <main>
-    <h2>まだまだ制作中！ここにアニメリストが入ります🎨</h2>
+    <section>
+      <h2>🎞️ 観たアニメ（50音順）</h2>
+    
+      <!-- あ行ボタン -->
+      <button onclick="toggleSection('a-gyou')" style="margin: 1em 0; font-size: 1.1em;">▶ あ行</button>
+    
+      <!-- あ行リスト -->
+      <div id="a-gyou" style="display:none; padding-left: 1em;">
+    
+        <p><details>
+          <summary>♡ アイの歌声を聴かせて</summary>
+          <p>推し：シオン<br>映像がとても綺麗で涙腺が…</p>
+        </details></p>
+    
+        <p><details>
+          <summary>☆ 赤髪の白雪姫</summary>
+          <p>推し：ゼン王子✨<br>優しくてきゅんとした…</p>
+        </details></p>
+    
+        <p><details>
+          <summary>△ アクダマドライブ</summary>
+          <p>推し：運び屋<br>人を選ぶけどハマった！</p>
+        </details></p>
+    
+      </div>
+    </section>
+    
+    <script>
+      function toggleSection(id) {
+        const section = document.getElementById(id);
+        section.style.display = section.style.display === 'none' ? 'block' : 'none';
+      }
+    </script>    
   </main>
 
   <!-- 雪を降らせるスクリプト -->
