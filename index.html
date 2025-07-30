@@ -55,12 +55,58 @@
       <div id="a-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- か行ボタン -->
-      <button onclick="toggleSection('ka-gyou-list')" style="margin: 1em 0; font-size: 1.1em;">
-        ▶ か行
-      </button>
+      <button onclick="toggleSection('ka-gyou-list')" style="margin: 1em 0;">▶ か行</button>
 
       <!-- か行リスト -->
       <div id="ka-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- さ行ボタン -->
+      <button onclick="toggleSection('sa-gyou-list')" style="margin: 1em 0;">▶ さ行</button>
+
+      <!-- さ行リスト -->
+      <div id="sa-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- た行ボタン -->
+      <button onclick="toggleSection('ta-gyou-list')" style="margin: 1em 0;">▶ た行</button>
+
+      <!-- た行リスト -->
+      <div id="ta-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- な行ボタン -->
+      <button onclick="toggleSection('na-gyou-list')" style="margin: 1em 0;">▶ な行</button>
+
+      <!-- な行リスト -->
+      <div id="na-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- は行ボタン -->
+      <button onclick="toggleSection('ha-gyou-list')" style="margin: 1em 0;">▶ は行</button>
+    
+      <!-- は行リスト -->
+      <div id="ha-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- ま行ボタン -->
+      <button onclick="toggleSection('ma-gyou-list')" style="margin: 1em 0;">▶ ま行</button>
+
+      <!-- ま行リスト -->
+      <div id="ma-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- や行ボタン -->
+      <button onclick="toggleSection('ya-gyou-list')" style="margin: 1em 0;">▶ や行</button>
+
+      <!-- や行リスト -->
+      <div id="ya-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- ら行ボタン -->
+      <button onclick="toggleSection('ra-gyou-list')" style="margin: 1em 0;">▶ ら行</button>
+
+      <!-- ら行リスト -->
+      <div id="ra-gyou-list" style="display: none; padding-left: 1em;"></div>
+
+      <!-- わ行ボタン -->
+      <button onclick="toggleSection('wa-gyou-list')" style="margin: 1em 0;">▶ わ行</button>
+
+      <!-- わ行リスト -->
+      <div id="wa-gyou-list" style="display: none; padding-left: 1em;"></div>
 
     </section>
     
@@ -138,12 +184,20 @@
       section.style.display = nowOpen ? "none" : "block";
 
       if (!nowOpen) {
-        if (id === "a-gyou-list") {
-          loadAnimeList("あ", "a-gyou-list");
-        } else if (id === "ka-gyou-list") {
-          loadAnimeList("か", "ka-gyou-list");
-        }
-        // 他の行も今後ここに追加していけばOK！
+        const kanaMap = {
+          "a-gyou-list": "あ",
+          "ka-gyou-list": "か",
+          "sa-gyou-list": "さ",
+          "ta-gyou-list": "た",
+          "na-gyou-list": "な",
+          "ha-gyou-list": "は",
+          "ma-gyou-list": "ま",
+          "ya-gyou-list": "や",
+          "ra-gyou-list": "ら",
+          "wa-gyou-list": "わ"
+        };
+        const kana = kanaMap[id];
+        if (kana) loadAnimeList(kana, id);
       }
     }
 
