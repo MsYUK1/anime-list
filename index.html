@@ -49,27 +49,10 @@
       <h2>🎞️ 観たアニメ（50音順）</h2>
     
       <!-- あ行ボタン -->
-      <button onclick="toggleSection('a-gyou')" style="margin: 1em 0; font-size: 1.1em;">▶ あ行</button>
+      <button onclick="toggleSection('a-gyou-list')" style="margin: 1em 0;">▶ あ行</button>
     
       <!-- あ行リスト -->
-      <div id="a-gyou" style="display:none; padding-left: 1em;">
-    
-        <p><details>
-          <summary>♡ アイの歌声を聴かせて</summary>
-          <p>推し：シオン<br>映像がとても綺麗で涙腺が…</p>
-        </details></p>
-    
-        <p><details>
-          <summary>☆ 赤髪の白雪姫</summary>
-          <p>推し：ゼン王子✨<br>優しくてきゅんとした…</p>
-        </details></p>
-    
-        <p><details>
-          <summary>△ アクダマドライブ</summary>
-          <p>推し：運び屋<br>人を選ぶけどハマった！</p>
-        </details></p>
-    
-      </div>
+      <div id="a-gyou-list" style="display: none; padding-left: 1em;"></div>
     </section>
     
     <script>
@@ -111,6 +94,39 @@
       }
     `;
     document.head.appendChild(style);
+  </script>
+
+  <!-- アニメリストを読み込むJS -->
+  <script>
+    async function loadAnimeList() {
+      const response = await fetch("anime.json");
+      const data = await response.json();
+
+      const aList = document.getElementById("a-gyou-list");
+      aList.innerHTML = "";
+
+      data.filter(item => item.kana === "あ").forEach(anime => {
+        const details = document.createElement("details");
+        const summary = document.createElement("summary");
+        summary.textContent = `${anime.rank} ${anime.title}`;
+        const p = document.createElement("p");
+        p.innerHTML = `推し：${anime.fav}<br>${anime.comment}`;
+
+        details.appendChild(summary);
+        details.appendChild(p);
+        aList.appendChild(details);
+      });
+    }
+
+    function toggleSection(id) {
+      const section = document.getElementById(id);
+      const nowOpen = section.style.display === "block";
+      section.style.display = nowOpen ? "none" : "block";
+
+      if (!nowOpen && id === "a-gyou-list") {
+        loadAnimeList();
+      }
+    }
   </script>
 </body>
 </html>
