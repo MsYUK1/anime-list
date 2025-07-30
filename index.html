@@ -46,65 +46,55 @@
 
   <main>
     <section>
-      <h2>🎞️ 観たアニメ（50音順）</h2>
+      <h2 id="anime-count">🎞️ 観たアニメ（50音順）</h2>
     
       <!-- あ行ボタン -->
       <button onclick="toggleSection('a-gyou-list')" style="margin: 1em 0;">▶ あ行</button>
-    
       <!-- あ行リスト -->
       <div id="a-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- か行ボタン -->
       <button onclick="toggleSection('ka-gyou-list')" style="margin: 1em 0;">▶ か行</button>
-
       <!-- か行リスト -->
       <div id="ka-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- さ行ボタン -->
       <button onclick="toggleSection('sa-gyou-list')" style="margin: 1em 0;">▶ さ行</button>
-
       <!-- さ行リスト -->
       <div id="sa-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- た行ボタン -->
       <button onclick="toggleSection('ta-gyou-list')" style="margin: 1em 0;">▶ た行</button>
-
       <!-- た行リスト -->
       <div id="ta-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- な行ボタン -->
       <button onclick="toggleSection('na-gyou-list')" style="margin: 1em 0;">▶ な行</button>
-
       <!-- な行リスト -->
       <div id="na-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- は行ボタン -->
       <button onclick="toggleSection('ha-gyou-list')" style="margin: 1em 0;">▶ は行</button>
-    
       <!-- は行リスト -->
       <div id="ha-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- ま行ボタン -->
       <button onclick="toggleSection('ma-gyou-list')" style="margin: 1em 0;">▶ ま行</button>
-
       <!-- ま行リスト -->
       <div id="ma-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- や行ボタン -->
       <button onclick="toggleSection('ya-gyou-list')" style="margin: 1em 0;">▶ や行</button>
-
       <!-- や行リスト -->
       <div id="ya-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- ら行ボタン -->
       <button onclick="toggleSection('ra-gyou-list')" style="margin: 1em 0;">▶ ら行</button>
-
       <!-- ら行リスト -->
       <div id="ra-gyou-list" style="display: none; padding-left: 1em;"></div>
 
       <!-- わ行ボタン -->
       <button onclick="toggleSection('wa-gyou-list')" style="margin: 1em 0;">▶ わ行</button>
-
       <!-- わ行リスト -->
       <div id="wa-gyou-list" style="display: none; padding-left: 1em;"></div>
 
@@ -164,7 +154,9 @@
       data.filter(item => item.kana === gyouKana).forEach(anime => {
         const details = document.createElement("details");
         const summary = document.createElement("summary");
-        summary.textContent = `${anime.rank} ${anime.title}`;
+        let loopText = anime.loop ? `（${anime.loop}）` : "";
+        summary.textContent = `${anime.rank} ${anime.title} ${loopText}`;
+
 
         const p = document.createElement("p");
         let favText = anime.fav ? `推し：${anime.fav}<br>` : "";
@@ -200,6 +192,18 @@
         if (kana) loadAnimeList(kana, id);
       }
     }
+
+    async function countTotalAnime() {
+      const response = await fetch("anime.json");
+      const data = await response.json();
+
+      const count = data.length;
+      const heading = document.getElementById("anime-count");
+      heading.textContent = `🎞️ 観たアニメ（50音順）　（登録数：${count}件）`;
+    }
+
+    // ページが読み込まれたときに実行
+    window.addEventListener("DOMContentLoaded", countTotalAnime);
 
   </script>
 </body>
