@@ -110,7 +110,11 @@
         const summary = document.createElement("summary");
         summary.textContent = `${anime.rank} ${anime.title}`;
         const p = document.createElement("p");
-        p.innerHTML = `推し：${anime.fav}<br>${anime.comment}`;
+
+        let favText = anime.fav ? `推し：${anime.fav}<br>` : "";
+        let commentText = anime.comment ? anime.comment : "";
+
+        p.innerHTML = `${favText}${commentText}`;
 
         details.appendChild(summary);
         details.appendChild(p);
