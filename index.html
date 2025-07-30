@@ -155,7 +155,8 @@
         const details = document.createElement("details");
         const summary = document.createElement("summary");
         let loopText = anime.loop ? `（${anime.loop}）` : "";
-        summary.textContent = `${anime.rank} ${anime.title} ${loopText}`;
+        let statusText = anime.status ? `（${anime.status}）` : "";
+        summary.textContent = `${anime.rank} ${anime.title} ${loopText}${statusText}`;
 
 
         const p = document.createElement("p");
