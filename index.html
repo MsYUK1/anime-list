@@ -102,13 +102,8 @@
 
     <!-- 気になるアニメセクション -->
     <section>
-      <h2>
-        <button onclick="toggleInterested()" style="font-size: 1.1em;">
-          ▶ 気になるアニメ
-        </button>
-        <span id="interested-count" style="font-size: 0.9em; color: #666;"></span>
-      </h2>
-      <div id="interested-list" style="display: none; padding-left: 1em;"></div>
+      <h2>🔍 気になるアニメ</h2>
+      <div id="interested-list" style="padding-left: 1em;"></div>
     </section>
 
   </main>
@@ -204,7 +199,7 @@
 
       const count = data.length;
       const heading = document.getElementById("anime-count");
-      heading.textContent = `🎞️ 観たアニメ（50音順）　（登録数：${count}件）`;
+      heading.textContent = `🎞️ 観たアニメ（50音順）　（${count}作品）`;
     }
 
     // ページが読み込まれたときに実行
