@@ -102,8 +102,8 @@
 
     <!-- 気になるアニメセクション -->
     <section>
-      <h2>🔍 気になるアニメ</h2>
-      <div id="interested-list" style="padding-left: 1em;"></div>
+      <h2 id="interested-heading">🔍 気になるアニメ</h2>
+      <div id="interested-list" style="display: none; padding-left: 1em;"></div>
     </section>
 
   </main>
@@ -207,14 +207,12 @@
   </script>
 
   <script>
-    let interestedLoaded = false;
-
     async function loadInterestedList() {
       const response = await fetch("interested.json");
       const data = await response.json();
 
       const container = document.getElementById("interested-list");
-      container.innerHTML = ""; // 初期化
+      container.innerHTML = "";
 
       data.forEach(anime => {
         const details = document.createElement("details");
@@ -231,22 +229,13 @@
         container.appendChild(details);
       });
 
-      // カウント表示
-      const countText = `（${data.length}作品）`;
-      document.getElementById("interested-count").textContent = countText;
+      // 🔸ここで見出しに件数をつける
+      const heading = document.getElementById("interested-heading");
+      heading.textContent = `🔍 気になるアニメ　（${data.length}作品）`;
     }
 
-    function toggleInterested() {
-      const section = document.getElementById("interested-list");
-      const nowOpen = section.style.display === "block";
-      section.style.display = nowOpen ? "none" : "block";
-
-      if (!nowOpen && !interestedLoaded) {
-        loadInterestedList();
-        interestedLoaded = true;
-      }
-    }
-
+    // ページ読み込み時に即表示
+    window.addEventListener("DOMContentLoaded", loadInterestedList);
   </script>
 
 </body>
