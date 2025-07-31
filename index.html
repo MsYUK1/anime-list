@@ -31,6 +31,30 @@
       pointer-events: none;
       z-index: 9999;
     }
+    /* 各タイトル（summary）の文字サイズ・間隔 */
+    summary {
+      font-size: 1.1em;
+      margin-bottom: 0.2em;
+    }
+
+    /* コメント部分の見た目 */
+    details p {
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin: 0.3em 0 1.2em 1em;
+      color: #444;
+    }
+
+    /* 気になるアニメの各ブロックに余白 */
+    #interested-list details {
+      margin-bottom: 0.8em;
+    }
+
+    /* 五十音リストにも適用 */
+    .gyou-section details {
+      margin-bottom: 1em;
+    }
+
   </style>
 </head>
 <body>
@@ -97,7 +121,6 @@
       <button onclick="toggleSection('wa-gyou-list')" style="margin: 1em 0;">▶ わ行</button>
       <!-- わ行リスト -->
       <div id="wa-gyou-list" style="display: none; padding-left: 1em;"></div>
-
     </section>
 
     <!-- 気になるアニメセクション -->
@@ -140,6 +163,7 @@
       }
     `;
     document.head.appendChild(style);
+    
   </script>
 
   <!-- アニメリストを読み込むJS -->
