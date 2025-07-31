@@ -100,17 +100,17 @@
 
     </section>
 
+    <!-- 気になるアニメセクション -->
     <section>
-      <h2>🔍 気になるアニメ</h2>
-      <div id="interested-list" style="padding-left: 1em;"></div>
-    </section>    
-    
-    <script>
-      function toggleSection(id) {
-        const section = document.getElementById(id);
-        section.style.display = section.style.display === 'none' ? 'block' : 'none';
-      }
-    </script>    
+      <h2>
+        <button onclick="toggleInterested()" style="font-size: 1.1em;">
+          ▶ 気になるアニメ
+        </button>
+        <span id="interested-count" style="font-size: 0.9em; color: #666;"></span>
+      </h2>
+      <div id="interested-list" style="display: none; padding-left: 1em;"></div>
+    </section>
+
   </main>
 
 
@@ -212,29 +212,46 @@
   </script>
 
   <script>
+    let interestedLoaded = false;
+
     async function loadInterestedList() {
       const response = await fetch("interested.json");
       const data = await response.json();
 
       const container = document.getElementById("interested-list");
+      container.innerHTML = ""; // 初期化
+
       data.forEach(anime => {
-        const wrapper = document.createElement("div");
-        const title = document.createElement("p");
-        title.textContent = `${anime.rank} ${anime.title}`;
+        const details = document.createElement("details");
+        const summary = document.createElement("summary");
+        summary.textContent = `${anime.rank} ${anime.title}`;
 
         const comment = document.createElement("p");
         comment.style.marginBottom = "1em";
         comment.style.fontSize = "0.95em";
-        comment.textContent = `→ ${anime.comment}`;
+        comment.textContent = anime.comment;
 
-        wrapper.appendChild(title);
-        wrapper.appendChild(comment);
-        container.appendChild(wrapper);
+        details.appendChild(summary);
+        details.appendChild(comment);
+        container.appendChild(details);
       });
+
+      // カウント表示
+      const countText = `（${data.length}作品）`;
+      document.getElementById("interested-count").textContent = countText;
     }
 
-    // ページ読み込み時に実行
-    window.addEventListener("DOMContentLoaded", loadInterestedList);
+    function toggleInterested() {
+      const section = document.getElementById("interested-list");
+      const nowOpen = section.style.display === "block";
+      section.style.display = nowOpen ? "none" : "block";
+
+      if (!nowOpen && !interestedLoaded) {
+        loadInterestedList();
+        interestedLoaded = true;
+      }
+    }
+
   </script>
 
 </body>
