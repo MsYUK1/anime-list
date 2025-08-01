@@ -66,12 +66,11 @@
       border-radius: 999px;
       font-weight: 600;
     }
-
-    /* 視聴中断など目立たせたいタグ */
     .tag.warning {
       background-color: #ffe4e4;
       color: #cc0000;
     }
+
 
     /* 1作品ごとのブロック背景 */
     details {
@@ -214,31 +213,27 @@
           const details = document.createElement("details");
 
           const summary = document.createElement("summary");
-          summary.innerHTML = `${anime.rank || ""} ${anime.title}`;
 
-          if (anime.watch) {
-            const watchTag = document.createElement("span");
-            watchTag.className = "tag";
-            watchTag.textContent = anime.watch;
-            summary.appendChild(watchTag);
-          }
+          // 順番：rank → title → status → loop
+          let summaryContent = `${anime.rank || ""} ${anime.title}`;
 
           if (anime.status === "視聴中断") {
-            const statusTag = document.createElement("span");
-            statusTag.className = "tag warning";
-            statusTag.textContent = "視聴中断";
-            summary.appendChild(statusTag);
+            summaryContent += ` <span class="tag warning">視聴中断</span>`;
           }
+
+          if (anime.loop) {
+            summaryContent += ` <span class="tag">${anime.loop}</span>`;
+          }
+
+          summary.innerHTML = summaryContent;
 
           const comment = document.createElement("p");
           comment.style.marginBottom = "1em";
           comment.style.fontSize = "0.95em";
 
-          // 感想＆推しだけ
           const parts = [];
           if (anime.character) parts.push(`🤍 推し：${anime.character}`);
           if (anime.comment) parts.push(`💬 ${anime.comment}`);
-
 
           comment.innerHTML = parts.join("<br>");
 
@@ -250,6 +245,7 @@
 
       document.getElementById("watched-count").textContent = `（${totalCount}作品）`;
     }
+
 
 
 
